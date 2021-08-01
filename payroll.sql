@@ -57,3 +57,14 @@ select Name,Gender,Salary from employee_payroll where Salary=(select max(Salary)
 select Gender,max(Salary) as MaximuSalary from employee_payroll group by Gender having Gender='M';
 select Gender,Salary from employee_payroll where Gender = 'M';
 select Name,Gender,Salary from employee_payroll where Salary=(select max(Salary) from employee_payroll group by Gender having Gender='M');
+--------------------UC9----------------
+---using stored procedure (sp_rename) to rename existing colum
+Exec sp_rename 'employee_payroll.Salary','Base_Pay','COLUMN';
+
+alter table employee_payroll add TaxablePay float , Deductions float ,NetPay float,IncomeTax float ;
+
+update employee_payroll set Deductions=11.4 ,NetPay=2300,TaxablePay=100,IncomeTax=33 where Gender='F';
+
+update employee_payroll set Deductions=19.4 ,NetPay=200,TaxablePay=100,IncomeTax=23 where Gender='M';
+
+update employee_payroll set Deductions=20.0 ,NetPay=500,TaxablePay=300,IncomeTax=203 where Department='HR';
