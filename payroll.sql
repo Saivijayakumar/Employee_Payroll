@@ -35,6 +35,18 @@ select sum(Salary) as TotalSalary from employee_payroll;
 select Gender,sum(Salary) as TotalSalary from employee_payroll group by Gender;
 ---shows only female group salary
 select Gender,sum(Salary) as TotalSalary from employee_payroll group by Gender having Gender='F';
+-----------------UC8------------
+alter table employee_payroll add PhoneNumber bigint;
+
+alter table employee_payroll add Department varchar(200) not null default 'IT';
+
+alter table employee_payroll add Address varchar(250);
+
+update employee_payroll set PhoneNumber=984848384 , Address= 'chennai',Department = 'COMMUNICATION' where Id = 4;
+
+update employee_payroll set PhoneNumber=8484848384 , Address= 'Nellore',Department = 'HR' where Id = 2;
+
+update employee_payroll set PhoneNumber=994848384,Department = 'HELP DESK'  where Id = 5;
 
 select Gender,avg(Salary) as AverageSalary from employee_payroll group by Gender having Gender='F';
 ---finding minimum salary in female group
