@@ -28,4 +28,20 @@ alter table employee_payroll add Gender char(1);
 update employee_payroll set Gender='M';
 ---------effect  according to condition---(or) both should update--
 update employee_payroll set Gender='F' where Id = 4 or Id = 5;
+-----------------UC7-----------
+----Shows the total salary of all employee
+select sum(Salary) as TotalSalary from employee_payroll;
+---shows both male and female total salary individual 
+select Gender,sum(Salary) as TotalSalary from employee_payroll group by Gender;
+---shows only female group salary
+select Gender,sum(Salary) as TotalSalary from employee_payroll group by Gender having Gender='F';
 
+select Gender,avg(Salary) as AverageSalary from employee_payroll group by Gender having Gender='F';
+---finding minimum salary in female group
+select Gender,min(Salary) as MinimuSalary from employee_payroll group by Gender having Gender='F';
+select Gender,Salary from employee_payroll where Gender = 'F';
+select Name,Gender,Salary from employee_payroll where Salary=(select max(Salary) from employee_payroll group by Gender having Gender='F');
+---finding maximum salary in male group
+select Gender,max(Salary) as MaximuSalary from employee_payroll group by Gender having Gender='M';
+select Gender,Salary from employee_payroll where Gender = 'M';
+select Name,Gender,Salary from employee_payroll where Salary=(select max(Salary) from employee_payroll group by Gender having Gender='M');
