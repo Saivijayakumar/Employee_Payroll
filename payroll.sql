@@ -68,3 +68,5 @@ update employee_payroll set Deductions=11.4 ,NetPay=2300,TaxablePay=100,IncomeTa
 update employee_payroll set Deductions=19.4 ,NetPay=200,TaxablePay=100,IncomeTax=23 where Gender='M';
 
 update employee_payroll set Deductions=20.0 ,NetPay=500,TaxablePay=300,IncomeTax=203 where Department='HR';
+----------------UC10----------------
+Insert into employee_payroll values ('Terissa',203939,'1998-03-09','M',98448483992,'Sales and Marketing','AP',400,10.05,3000,300);
