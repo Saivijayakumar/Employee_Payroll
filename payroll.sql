@@ -16,3 +16,7 @@ insert into employee_payroll(Name,StartDate,Salary) values ('Ram','2020-09-3',19
 ----Used to delete specified rows in table -->delete from employee_payroll where condition;
 -------------UC4----------
 select * from employee_payroll;
+------------UC5------------
+select Name,Salary from employee_payroll where name = 'sai';
+--changing string to date by using cast 
+select * from employee_payroll where StartDate between cast('2020-01-1' as date) and getdate();
