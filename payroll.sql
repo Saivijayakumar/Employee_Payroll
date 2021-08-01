@@ -20,3 +20,12 @@ select * from employee_payroll;
 select Name,Salary from employee_payroll where name = 'sai';
 --changing string to date by using cast 
 select * from employee_payroll where StartDate between cast('2020-01-1' as date) and getdate();
+-----------UC6--------------
+insert into employee_payroll values ('Ramya',29448,'2020-07-21'),('Ravali',90448,'2010-09-6');
+
+alter table employee_payroll add Gender char(1);
+---effect all rows----------
+update employee_payroll set Gender='M';
+---------effect  according to condition---(or) both should update--
+update employee_payroll set Gender='F' where Id = 4 or Id = 5;
+
