@@ -70,3 +70,91 @@ update employee_payroll set Deductions=19.4 ,NetPay=200,TaxablePay=100,IncomeTax
 update employee_payroll set Deductions=20.0 ,NetPay=500,TaxablePay=300,IncomeTax=203 where Department='HR';
 ----------------UC10----------------
 Insert into employee_payroll values ('Terissa',203939,'1998-03-09','M',98448483992,'Sales and Marketing','AP',400,10.05,3000,300);
+select * from employee_payroll;
+---------------- UC11: ER Diagram-------------------
+--Creating Table for Company
+Create Table Company
+(CompanyID int identity(1,1) primary key,
+CompanyName varchar(100));
+--Insert Values into Company table
+Insert into Company values ('TCS'),('OCS'),('TATA');
+Select * from Company;
+
+--Creating Employee Table
+create table Employee
+(EmployeeID int identity(1,1) primary key,
+CompanyIdentity int,
+EmployeeName varchar(200),
+EmployeePhoneNumber bigInt,
+EmployeeAddress varchar(200),
+StartDate date,
+Gender char(1),
+Foreign key (CompanyIdentity) references Company(CompanyID)
+);
+--Insert Values in Employee Table
+insert into Employee values
+(1,'sai',999005050,'12, rue des Bouchers,France','2010-01-28','M'),
+(2,'vijaya',848488439,'Constitution Ave Fairfield, 94533','2005-04-02','F'),
+(3,'kumar',98484848339,'Bernard Shaw,Italy ','2011-08-23','M'),
+(2,'Ramya',8894849300,'120 Hanover Sq,London','2002-09-09','F');
+Select * from Employee;
+
+--Creating EMPPayroll Table
+create table EMPPayroll
+(BasicPay float,
+Deductions float,
+TaxablePay float,
+IncomeTax float,
+NetPay float,
+EmployeeIdentity int,
+Foreign key (EmployeeIdentity) references Employee(EmployeeID)
+);
+--Insert Values in EMPPayroll Table
+insert into EMPPayroll(BasicPay,Deductions,IncomeTax,EmployeeIdentity) values 
+(9000000,2000000,2000,1),
+(503000,90000,4000,2),
+(6780000,19000,5000,3),
+(9088400,30944,45684,4);
+
+--Update Derived attribute values 
+update EMPPayroll
+set TaxablePay=BasicPay-Deductions;
+
+update EMPPayroll
+set NetPay=TaxablePay-IncomeTax;
+
+select * from EMPPayroll;
+
+--Creating Department Table
+create table Department
+(
+DepartmentId int identity(1,1) primary key,
+DepartName varchar(100)
+);
+--Insert Values in Department Table
+insert into Department values
+('HR'),
+('Marketing'),
+('Sales'),
+('IT');
+
+select * from Department
+
+--Creating table EmployeeDepartment
+create table EmployeeDepartment
+(
+DepartmentIdentity int ,
+EmployeeIdentity int,
+Foreign key (DepartmentIdentity) references Department(DepartmentID),
+Foreign key (EmployeeIdentity) references Employee(EmployeeID)
+);
+
+--Insert Values in EmployeeDepartment
+insert into EmployeeDepartment values
+(3,1),
+(2,2),
+(1,1),
+(4,4),
+(4,3);
+
+select * from EmployeeDepartment
