@@ -158,3 +158,12 @@ insert into EmployeeDepartment values
 (4,3);
 
 select * from EmployeeDepartment
+-----------------UC12:Checking UC4,UC5,UC7--------------
+--------UC4:Display total information of employee
+SELECT CompanyID,CompanyName,EmployeeID,EmployeeName,EmployeeAddress,EmployeePhoneNumber,StartDate,Gender,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay,DepartmentId,DepartName
+FROM Company
+INNER JOIN Employee ON Company.CompanyID = Employee.CompanyIdentity
+INNER JOIN EMPPayroll on EMPPayroll.EmployeeIdentity=Employee.EmployeeID
+INNER JOIN EmployeeDepartment on Employee.EmployeeID=EmployeeDepartment.EmployeeIdentity
+INNER JOIN Department on Department.DepartmentId=EmployeeDepartment.DepartmentIdentity;
+--------------
