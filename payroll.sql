@@ -162,8 +162,28 @@ select * from EmployeeDepartment
 --------UC4:Display total information of employee
 SELECT CompanyID,CompanyName,EmployeeID,EmployeeName,EmployeeAddress,EmployeePhoneNumber,StartDate,Gender,BasicPay,Deductions,TaxablePay,IncomeTax,NetPay,DepartmentId,DepartName
 FROM Company
-INNER JOIN Employee ON Company.CompanyID = Employee.CompanyIdentity
+INNER JOIN Employee on Company.CompanyID = Employee.CompanyIdentity
 INNER JOIN EMPPayroll on EMPPayroll.EmployeeIdentity=Employee.EmployeeID
 INNER JOIN EmployeeDepartment on Employee.EmployeeID=EmployeeDepartment.EmployeeIdentity
 INNER JOIN Department on Department.DepartmentId=EmployeeDepartment.DepartmentIdentity;
---------------
+--------------UC 5:joined in a particular date
+SELECT CompanyID,CompanyName,EmployeeID,EmployeeName
+FROM Company
+INNER JOIN Employee ON Company.CompanyID = Employee.CompanyIdentity where StartDate BETWEEN Cast('2000-11-12' as Date) and cast('2010-02-02' as Date);
+-------------------------- UC7:Aggregate function 
+select Count(EmployeeID) as "EmployeeCountBasedOnGender",Gender
+from Employee
+INNER JOIN EMPPayroll on Employee.EmployeeID=EMPPayroll.EmployeeIdentity group by Gender;
+---------Finding Minimum Salary
+select emp.EmployeeID,emp.EmployeeName,BasicPay 
+from Employee emp inner join EMPPayroll on Emp.EmployeeID=EMPPayroll.EmployeeIdentity 
+where BasicPay=(select min(BasicPay) from EMPPayroll);
+---------Finding Maximum Salary
+select emp.EmployeeID,emp.EmployeeName,BasicPay 
+from Employee emp inner join EMPPayroll on Emp.EmployeeID=EMPPayroll.EmployeeIdentity 
+where BasicPay=(select max(BasicPay) from EMPPayroll);
+-----------Finding Avg
+select avg(BasicPay) as "AverageSalary",Gender
+from Employee
+INNER JOIN EMPPayroll on Employee.EmployeeID=EMPPayroll.EmployeeIdentity group by Gender;
+
